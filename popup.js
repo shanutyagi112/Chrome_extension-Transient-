@@ -2,34 +2,53 @@ document.addEventListener('DOMContentLoaded', function() {
   loadSettings();
   setupEventListeners();
 });
- 
+
 function setupEventListeners() {
   // Toggle switches
   document.getElementById('selectToggle').addEventListener('click', () => {
     toggleSwitch('selectToggle');
     autoSaveSettings();
+    showRefreshNotification();
   });
   
   document.getElementById('textbarToggle').addEventListener('click', () => {
     toggleSwitch('textbarToggle');
     autoSaveSettings();
+    showRefreshNotification();
   });
   
   document.getElementById('serviceTypeToggle').addEventListener('click', () => {
     toggleServiceType();
     autoSaveSettings();
+    showRefreshNotification();
   });
   
   // Language selectors - auto-save on change
-  document.getElementById('selectTargetLang').addEventListener('change', autoSaveSettings);
-  document.getElementById('textbarSourceLang').addEventListener('change', autoSaveSettings);
-  document.getElementById('textbarTargetLang').addEventListener('change', autoSaveSettings);
+  document.getElementById('selectTargetLang').addEventListener('change', () => {
+    autoSaveSettings();
+    showRefreshNotification();
+  });
+  
+  document.getElementById('textbarSourceLang').addEventListener('change', () => {
+    autoSaveSettings();
+    showRefreshNotification();
+  });
+  
+  document.getElementById('textbarTargetLang').addEventListener('change', () => {
+    autoSaveSettings();
+    showRefreshNotification();
+  });
   
   // Service selection - auto-save on change
-  document.getElementById('freeServiceSelect').addEventListener('change', autoSaveSettings);
+  document.getElementById('freeServiceSelect').addEventListener('change', () => {
+    autoSaveSettings();
+    showRefreshNotification();
+  });
+  
   document.getElementById('paidServiceSelect').addEventListener('change', () => {
     updatePaidServiceConfig();
     autoSaveSettings();
+    showRefreshNotification();
   });
   
   // API keys - auto-save on input with debounce
@@ -37,12 +56,55 @@ function setupEventListeners() {
   
   document.getElementById('microsoftApiKey').addEventListener('input', () => {
     clearTimeout(debounceTimer);
-    debounceTimer = setTimeout(autoSaveSettings, 1000);
+    debounceTimer = setTimeout(() => {
+      autoSaveSettings();
+      showRefreshNotification();
+    }, 1000);
   });
   
   document.getElementById('geminiApiKey').addEventListener('input', () => {
     clearTimeout(debounceTimer);
-    debounceTimer = setTimeout(autoSaveSettings, 1000);
+    debounceTimer = setTimeout(() => {
+      autoSaveSettings();
+      showRefreshNotification();
+    }, 1000);
+  });
+  
+  // Refresh button
+  document.getElementById('refreshButton').addEventListener('click', refreshActiveTab);
+}
+
+function showRefreshNotification() {
+  const notification = document.getElementById('refreshNotification');
+  notification.classList.add('show');
+}
+
+function hideRefreshNotification() {
+  const notification = document.getElementById('refreshNotification');
+  notification.classList.remove('show');
+}
+
+function refreshActiveTab() {
+  // Get the active tab and refresh it
+  chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+    if (tabs[0]) {
+      chrome.tabs.reload(tabs[0].id, function() {
+        // Hide notification after refresh
+        hideRefreshNotification();
+        
+        // Show success feedback
+        const button = document.getElementById('refreshButton');
+        const originalText = button.innerHTML;
+        
+        button.innerHTML = '<span>✅</span><span>Tab Refreshed!</span>';
+        button.style.background = 'rgba(76, 175, 80, 0.3)';
+        
+        setTimeout(() => {
+          button.innerHTML = originalText;
+          button.style.background = 'rgba(255, 255, 255, 0.2)';
+        }, 2000);
+      });
+    }
   });
 }
 
