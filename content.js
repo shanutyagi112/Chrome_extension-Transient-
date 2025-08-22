@@ -1,4 +1,4 @@
-let settings = {};
+let settings = {}; 
 let translationPopup = null;
 let textbarIcons = new Map();
 let originalTexts = new WeakMap();
