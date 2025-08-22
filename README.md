@@ -29,7 +29,7 @@ Transient is an advanced browser extension that provides seamless translation ca
 *(Coming soon)*
 
 ### Manual Installation (Developer Mode)
-1. Download the latest release from [GitHub Releases](https://github.com/imshanutyagi/transient-extension/releases)
+1. Download the latest release from [GitHub Releases](https://github.com/shanutyagi112/transient-extension/releases)
 2. Unzip the downloaded file
 3. Open Chrome/Edge and navigate to `chrome://extensions/`
 4. Enable "Developer Mode"
@@ -89,10 +89,7 @@ This license allows for personal and educational use, but explicitly prohibits a
 
 ## Creators
 
-- **imshanutyagi**
+- **shanu tyagi(its_me)**
 - **Sunny** 
 - **Mohit**
 
----
-
-Last updated: 2025-08-22 08:26:10 by imshanutyagi
