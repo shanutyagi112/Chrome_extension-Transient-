@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html> 
+<html>
 <head>
   <meta charset="utf-8">
   <title>Transient Settings</title>
@@ -56,6 +56,64 @@
       font-size: 14px;
       color: #b3b3b3;
       font-weight: 300;
+    }
+    
+    /* Refresh notification */
+    .refresh-notification {
+      background: linear-gradient(135deg, #5865f2 0%, #4752c4 100%);
+      border: none;
+      padding: 16px 20px;
+      margin: 0;
+      color: white;
+      text-align: center;
+      display: none;
+      animation: slideDown 0.3s ease-out;
+    }
+    
+    .refresh-notification.show {
+      display: block;
+    }
+    
+    .refresh-text {
+      font-size: 14px;
+      margin-bottom: 12px;
+      font-weight: 500;
+    }
+    
+    .refresh-button {
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: white;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 500;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    
+    .refresh-button:hover {
+      background: rgba(255, 255, 255, 0.3);
+      border-color: rgba(255, 255, 255, 0.5);
+      transform: translateY(-1px);
+    }
+    
+    .refresh-button:active {
+      transform: translateY(0);
+    }
+    
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
     
     .content {
@@ -332,6 +390,15 @@
   <p>Advanced Translation Tool</p>
 </div>
 
+  <!-- Refresh Notification -->
+  <div class="refresh-notification" id="refreshNotification">
+    <div class="refresh-text">⚠️ Settings changed! Refresh active tab to apply changes</div>
+    <button class="refresh-button" id="refreshButton">
+      <span>🔄</span>
+      <span>Refresh Active Tab</span>
+    </button>
+  </div>
+
   <div class="content">
     <!-- Selection Translation -->
     <div class="section ripple">
@@ -462,7 +529,7 @@
   </div>
 
   <div class="footer">
-    Created by <span class="creator">its_me</span>
+    Created by <span class="creator">shanu tyagi(its_me)</span>
   </div>
 
   <div id="status" class="status hidden"></div>
