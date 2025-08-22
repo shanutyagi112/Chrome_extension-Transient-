@@ -1,9 +1,15 @@
-// Transient - Advanced Translation Tool by its_me
 let settings = {};
 let translationPopup = null;
 let textbarIcons = new Map();
 let originalTexts = new WeakMap();
 let isExtensionReady = false;
+
+
+const iconBase64Blue = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB4PSI0IiB5PSI0IiB3aWR0aD0iNTYiIGhlaWdodD0iNTYiIHJ4PSI4IiBmaWxsPSIjMWYxZjFmIiBzdHJva2U9IiM1ODY1ZjIiIHN0cm9rZS13aWR0aD0iMiIvPjxwYXRoIGQ9Ik0yMiAyMkg0MlYzM0wzNSAyNkwyOCAzM0wyOCAyMkgyMloiIHN0cm9rZT0iIzU4NjVmMiIgc3Ryb2tlLXdpZHRoPSIyIiBmaWxsPSJub25lIi8+PHBhdGggZD0iTTIyIDQwSDQyVjQ0SDIyVjQwWiIgc3Ryb2tlPSIjNTg2NWYyIiBzdHJva2Utd2lkdGg9IjIiIGZpbGw9Im5vbmUiLz48L3N2Zz4=";
+
+const iconBase64White = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB4PSI0IiB5PSI0IiB3aWR0aD0iNTYiIGhlaWdodD0iNTYiIHJ4PSI4IiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMikiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMiIvPjxwYXRoIGQ9Ik0yMiAyMkg0MlYzM0wzNSAyNkwyOCAzM0wyOCAyMkgyMloiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMiIgZmlsbD0ibm9uZSIvPjxwYXRoIGQ9Ik0yMiA0MEg0MlY0NEgyMlY0MFoiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMiIgZmlsbD0ibm9uZSIvPjwvc3ZnPg==";
+
+const iconBase64Gray = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB4PSI0IiB5PSI0IiB3aWR0aD0iNTYiIGhlaWdodD0iNTYiIHJ4PSI4IiBmaWxsPSIjMWYxZjFmIiBzdHJva2U9IiNiOWJiYmUiIHN0cm9rZS13aWR0aD0iMiIvPjxwYXRoIGQ9Ik0yMiAyMkg0MlYzM0wzNSAyNkwyOCAzM0wyOCAyMkgyMloiIHN0cm9rZT0iI2I5YmJiZSIgc3Ryb2tlLXdpZHRoPSIyIiBmaWxsPSJub25lIi8+PHBhdGggZD0iTTIyIDQwSDQyVjQ0SDIyVjQwWiIgc3Ryb2tlPSIjYjliYmJlIiBzdHJva2Utd2lkdGg9IjIiIGZpbGw9Im5vbmUiLz48L3N2Zz4=";
 
 // Initialize
 setTimeout(() => {
@@ -113,9 +119,7 @@ function showTranslationPopup(text, selection) {
         letter-spacing: 0.5px;
       ">
         <div style="display: flex; align-items: center; gap: 8px;">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="#5865f2">
-            <path d="M12.87 15.07L18.54 9.4L20 8.9v-.7L18.54 7.6L12.87 1.93a1 1 0 00-1.24 0c-.12.1-.2.23-.2.38V9l-4.82-3.78c-.27-.33-.74-.28-1.04 0-.3.3-.27.76 0 1l4.69 4.69-4.69 4.69c-.27.28-.3.75 0 1 .29.28.77.33 1.04 0L7.43 16v7.69c0 .15.08.29.2.38a1 1 0 001.24 0z"/>
-          </svg>
+          <img src="${iconBase64Blue}" width="14" height="14" alt="Transient" style="display:block;">
           <span>Translating</span>
         </div>
         <button style="
@@ -424,12 +428,8 @@ function createTranslationIcon(input) {
   const icon = document.createElement('div');
   icon.className = 'translator-icon';
   
-  // Discord-style SVG icon
-  icon.innerHTML = `
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M12.87 15.07L18.54 9.4L20 8.9v-.7L18.54 7.6L12.87 1.93a1 1 0 00-1.24 0c-.12.1-.2.23-.2.38V9l-4.82-3.78c-.27-.33-.74-.28-1.04 0-.3.3-.27.76 0 1l4.69 4.69-4.69 4.69c-.27.28-.3.75 0 1 .29.28.77.33 1.04 0L7.43 16v7.69c0 .15.08.29.2.38a1 1 0 001.24 0z"/>
-    </svg>
-  `;
+  // Using your custom icon
+  icon.innerHTML = `<img src="${iconBase64Gray}" width="16" height="16" alt="Transient" style="display:block;">`;
   
   icon.title = 'Transient • Click to translate • Hold for settings';
   
@@ -620,6 +620,12 @@ function updateIconPosition(icon, input) {
       icon.style.color = '#ffffff';
       icon.style.borderColor = '#5865f2';
       icon.style.boxShadow = '0 4px 15px rgba(88, 101, 242, 0.3)';
+      
+      // Change to white icon on hover
+      const img = icon.querySelector('img');
+      if (img) {
+        img.src = iconBase64White;
+      }
     }
   };
   
@@ -630,6 +636,12 @@ function updateIconPosition(icon, input) {
       icon.style.color = '#b9bbbe';
       icon.style.borderColor = '#40444b';
       icon.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.2)';
+      
+      // Change back to gray icon
+      const img = icon.querySelector('img');
+      if (img) {
+        img.src = iconBase64Gray;
+      }
     }
   };
 }
@@ -1130,16 +1142,16 @@ function showLanguageMenu(icon, input) {
   menu.className = 'translator-language-menu';
   menu.innerHTML = `
     <div style="
-      padding: 20px;
+      padding: 16px;
       background: #5865f2;
       color: white;
       border-radius: 8px 8px 0 0;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-weight: 700;
+      font-weight: 600;
     ">
-      <div style="display: flex; align-items: center; gap: 12px;">
+      <div style="display: flex; align-items: center; gap: 10px;">
         <div style="
           width: 28px;
           height: 28px;
@@ -1149,23 +1161,21 @@ function showLanguageMenu(icon, input) {
           align-items: center;
           justify-content: center;
         ">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
-            <path d="M12.87 15.07L18.54 9.4L20 8.9v-.7L18.54 7.6L12.87 1.93a1 1 0 00-1.24 0c-.12.1-.2.23-.2.38V9l-4.82-3.78c-.27-.33-.74-.28-1.04 0-.3.3-.27.76 0 1l4.69 4.69-4.69 4.69c-.27.28-.3.75 0 1 .29.28.77.33 1.04 0L7.43 16v7.69c0 .15.08.29.2.38a1 1 0 001.24 0z"/>
-          </svg>
+          <img src="${iconBase64White}" width="16" height="16" alt="Transient" style="display:block;">
         </div>
         <div>
-          <div style="font-size: 20px; font-weight: 700;">Transient</div>
-          <div style="font-size: 14px; opacity: 0.8;">Translation Settings</div>
+          <div style="font-size: 18px; font-weight: 600;">Transient</div>
+          <div style="font-size: 12px; opacity: 0.9;">Translation Settings</div>
         </div>
       </div>
       <button style="
-        background: #f04747;
+        background: #ef4444;
         border: none;
         color: white;
         font-size: 16px;
         cursor: pointer;
-        width: 32px;
-        height: 32px;
+        width: 24px;
+        height: 24px;
         border-radius: 3px;
         display: flex;
         align-items: center;
@@ -1175,7 +1185,7 @@ function showLanguageMenu(icon, input) {
       " class="menu-close" title="Close menu">×</button>
     </div>
     
-    <div style="padding: 20px; background: #2f3136;">
+    <div style="padding: 16px; background: #2f3136;">
       <div style="margin-bottom: 16px;">
         <label style="
           display: block;
@@ -1186,18 +1196,19 @@ function showLanguageMenu(icon, input) {
           text-transform: uppercase;
           letter-spacing: 0.5px;
           font-family: 'Whitney', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-        ">From Language</label>
+        ">FROM LANGUAGE</label>
         <select id="quickFromLang" style="
           width: 100%;
           padding: 10px 12px;
           border: 1px solid #40444b;
           border-radius: 3px;
-          font-size: 16px;
+          font-size: 14px;
           background: #40444b;
           color: #dcddde;
           cursor: pointer;
           transition: border-color 0.15s ease-in-out;
           font-family: 'Whitney', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+          appearance: menulist;
         ">
           <option value="auto">🔍 Auto-detect</option>
           <option value="en">🇺🇸 English</option>
@@ -1225,18 +1236,19 @@ function showLanguageMenu(icon, input) {
           text-transform: uppercase;
           letter-spacing: 0.5px;
           font-family: 'Whitney', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-        ">To Language</label>
+        ">TO LANGUAGE</label>
         <select id="quickToLang" style="
           width: 100%;
           padding: 10px 12px;
           border: 1px solid #40444b;
           border-radius: 3px;
-          font-size: 16px;
+          font-size: 14px;
           background: #40444b;
           color: #dcddde;
           cursor: pointer;
           transition: border-color 0.15s ease-in-out;
           font-family: 'Whitney', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+          appearance: menulist;
         ">
           <option value="en">🇺🇸 English</option>
           <option value="es">🇪🇸 Spanish</option>
@@ -1255,7 +1267,7 @@ function showLanguageMenu(icon, input) {
       
       <div style="
         background: #1e2328;
-        padding: 12px;
+        padding: 10px;
         border-radius: 3px;
         text-align: center;
         color: #00d26a;
@@ -1320,7 +1332,7 @@ function showLanguageMenu(icon, input) {
     closeBtn.style.background = '#d73502';
   };
   closeBtn.onmouseleave = () => {
-    closeBtn.style.background = '#f04747';
+    closeBtn.style.background = '#ef4444';
   };
   
   // Discord-style select focus
@@ -1444,4 +1456,4 @@ window.addEventListener('beforeunload', () => {
   hideTranslationPopup();
 });
 
-console.log('Transient: Discord-style advanced translation tool loaded');
+console.log('Transient: Advanced translation tool loaded by imshanutyagi');
