@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
   loadSettings();
   setupEventListeners();
 });
-
+ 
 function setupEventListeners() {
   // Toggle switches
   document.getElementById('selectToggle').addEventListener('click', () => {
