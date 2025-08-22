@@ -43,7 +43,7 @@
     },
     "default_popup": "popup.html",
     "default_title": "Transient Settings"
-  },
+  }, 
   
   "options_ui": {
     "page": "popup.html",
