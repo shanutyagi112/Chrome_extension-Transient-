@@ -323,9 +323,60 @@
       border: 1px solid #ffffff;
     }
     
+    /* Feedback section styling */
+    .feedback-section {
+      background: #1e1e1e;
+      padding: 16px 20px;
+      margin-top: 16px;
+      border-top: 1px solid #333;
+      border-radius: 0 0 8px 8px;
+    }
+    
+    .feedback-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    
+    .feedback-header h4 {
+      font-size: 14px;
+      font-weight: 600;
+      color: #ffffff;
+      margin: 0;
+    }
+    
+    .feedback-content {
+      font-size: 12px;
+      color: #b3b3b3;
+      line-height: 1.4;
+    }
+    
+    .feedback-email {
+      color: #5865f2;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+    
+    .feedback-email:hover {
+      color: #ffffff;
+      text-decoration: underline;
+    }
+    
+    .updates-text {
+      margin-top: 8px;
+      font-size: 11px;
+      color: #888;
+      font-style: italic;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    
     .footer {
       text-align: center;
-      margin-top: 24px;
+      margin-top: 16px;
       padding: 16px 20px;
       font-size: 12px;
       color: #666;
@@ -525,6 +576,22 @@
     <div class="auto-save-indicator">
       <span>✅</span>
       <span>All settings are saved automatically</span>
+    </div>
+  </div>
+
+  <!-- Feedback Section -->
+  <div class="feedback-section">
+    <div class="feedback-header">
+      <span>💬</span>
+      <h4>Feedback & Support</h4>
+    </div>
+    <div class="feedback-content">
+      Found a bug or have suggestions? Contact us at: 
+      <a href="mailto:for_online@icloud.com?subject=Transient%20Feedback" class="feedback-email">for_online@icloud.com</a>
+    </div>
+    <div class="updates-text">
+      <span>🚀</span>
+      <span>More updates coming soon...</span>
     </div>
   </div>
 
