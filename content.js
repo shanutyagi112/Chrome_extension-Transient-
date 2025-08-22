@@ -1,4 +1,4 @@
-let settings = {}; 
+let settings = {};
 let translationPopup = null;
 let textbarIcons = new Map();
 let originalTexts = new WeakMap();
@@ -12,7 +12,7 @@ const iconBase64TWhite = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdo
 
 // T icon in dark background with gray "T" (for textbar)
 const iconBase64TGray = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIyMCIgY3k9IjIwIiByPSIyMCIgZmlsbD0iIzFmMWYxZiIgc3Ryb2tlPSIjNDA0NDRiIiBzdHJva2Utd2lkdGg9IjEiLz48cGF0aCBkPSJNMTUgMTJIMjVWMTVIMTJaIiBmaWxsPSIjYjliYmJlIi8+PHBhdGggZD0iTTE5IDEySDIxVjI4SDE5VjEyWiIgZmlsbD0iI2I5YmJiZSIvPjwvc3ZnPg==";
- 
+
 // Initialize
 setTimeout(() => {
   isExtensionReady = true;
@@ -37,6 +37,7 @@ function loadSettings() {
     'geminiApiKey'
   ], (result) => {
     settings = result;
+    console.log('Loaded settings:', settings);
     updateFeatures();
   });
 }
@@ -44,6 +45,7 @@ function loadSettings() {
 // Listen for settings updates
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.action === 'settingsUpdated') {
+    console.log('Settings updated received:', request.settings);
     settings = request.settings;
     updateFeatures();
     sendResponse({ received: true });
@@ -53,15 +55,21 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 function updateFeatures() {
   if (!isExtensionReady) return;
   
+  console.log('Updating features with settings:', settings);
+  
   if (settings.selectTranslation) {
+    console.log('Enabling selection translation');
     enableSelectionTranslation();
   } else {
+    console.log('Disabling selection translation');
     disableSelectionTranslation();
   }
   
   if (settings.textbarTranslation) {
+    console.log('Enabling textbar icons');
     enableTextbarIcons();
   } else {
+    console.log('Disabling textbar icons');
     disableTextbarIcons();
   }
 }
@@ -375,11 +383,20 @@ function setupTextbarIcons() {
   
   observer.observe(document.body, { childList: true, subtree: true });
   
-  setTimeout(() => addTextbarIcons(), 2000);
-  setInterval(() => addTextbarIcons(), 5000);
+  // Only add icons if textbar translation is enabled
+  if (settings.textbarTranslation) {
+    setTimeout(() => addTextbarIcons(), 2000);
+    setInterval(() => addTextbarIcons(), 5000);
+  }
 }
 
 function addTextbarIcons() {
+  // Check if textbar translation is enabled
+  if (!settings.textbarTranslation) {
+    console.log('Textbar translation disabled, not adding icons');
+    return;
+  }
+  
   // Discord-specific selectors
   const discordSelectors = [
     '[data-slate-editor="true"]',
@@ -1414,19 +1431,28 @@ function closeLanguageMenu(menu, icon) {
 }
 
 function enableTextbarIcons() {
+  console.log('Enabling textbar icons');
   addTextbarIcons();
 }
 
 function disableTextbarIcons() {
+  console.log('Disabling textbar icons - removing all existing icons');
+  
+  // Remove all existing icons
   textbarIcons.forEach((icon) => {
     try {
       icon.remove();
-    } catch (e) {}
+      console.log('Removed textbar icon');
+    } catch (e) {
+      console.log('Error removing icon:', e);
+    }
   });
   textbarIcons.clear();
   
   // Clear original texts storage
   originalTexts = new WeakMap();
+  
+  console.log('All textbar icons removed');
 }
 
 // Translation API function
@@ -1458,4 +1484,4 @@ window.addEventListener('beforeunload', () => {
   hideTranslationPopup();
 });
 
-console.log('Transient: Advanced translation tool loaded by its_me');
+console.log('Transient: Advanced translation tool loaded by imshanutyagi');
