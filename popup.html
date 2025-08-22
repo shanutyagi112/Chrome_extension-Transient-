@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Transient Settings</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      width: 380px;
+      min-height: 500px;
+      font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      background: #121212;
+      color: #ffffff;
+      margin: 0;
+    }
+    
+    .header {
+      background: #1e1e1e;
+      padding: 24px 20px;
+      border-bottom: 1px solid #333;
+    }
+    
+    .header h1 {
+      font-size: 24px;
+      font-weight: 400;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+    .logo-icon {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    border-radius: 4px; /* Slightly rounded corners like your image */
+    background: #2a2a2a; /* Darker background for the icon */
+    padding: 2px; /* Small padding inside the icon container */
+  }
+    
+    .header .icon {
+      width: 32px;
+      height: 32px;
+      background: #ffffff;
+      mask: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyLjg3IDE1LjA3TDE4LjU0IDkuNEwyMCA4Ljl2LS43TDE4LjU0IDcuNkwxMi44NyAxLjkzYTEgMSAwIDAwLTEuMjQgMGMtLjEyLjEtLjIuMjMtLjIuMzhWOWwtNC44Mi0zLjc4Yy0uMjctLjMzLS43NC0uMjgtMS4wNCAwLS4zLjMtLjI3Ljc2IDAgMWw0LjY5IDQuNjktNC42OSA0LjY5Yy0uMjcuMjgtLjMuNzUgMCAxIC4yOS4yOC43Ny4zMyAxLjA0IDBMNy40MyAxNnY3LjY5YzAgLjE1LjA4LjI5LjIuMzhhMSAxIDAgMDAxLjI0IDB6IiBmaWxsPSIjZmZmIi8+CjxwYXRoIGQ9Ik0xOCA4di44bDEuNTQuNC0uNy0uOEwxOC41NCA3LjZMMTggOFoiIGZpbGw9IiNmZmYiLz4KPHN2Zz4=') no-repeat center;
+      mask-size: contain;
+      -webkit-mask: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyLjg3IDE1LjA3TDE4LjU0IDkuNEwyMCA4Ljl2LS43TDE4LjU0IDcuNkwxMi44NyAxLjkzYTEgMSAwIDAwLTEuMjQgMGMtLjEyLjEtLjIuMjMtLjIuMzhWOWwtNC44Mi0zLjc4Yy0uMjctLjMzLS43NC0uMjgtMS4wNCAwLS4zLjMtLjI3Ljc2IDAgMWw0LjY5IDQuNjktNC42OSA0LjY5Yy0uMjcuMjgtLjMuNzUgMCAxIC4yOS4yOC43Ny4zMyAxLjA0IDBMNy40MyAxNnY3LjY5YzAgLjE1LjA4LjI5LjIuMzhhMSAxIDAgMDAxLjI0IDB6IiBmaWxsPSIjZmZmIi8+CjxwYXRoIGQ9Ik0xOCA4di44bDEuNTQuNC0uNy0uOEwxOC41NCA3LjZMMTggOFoiIGZpbGw9IiNmZmYiLz4KPHN2Zz4=') no-repeat center;
+      -webkit-mask-size: contain;
+    }
+    
+    .header p {
+      font-size: 14px;
+      color: #b3b3b3;
+      font-weight: 300;
+    }
+    
+    .content {
+      padding: 20px;
+    }
+    
+    .section {
+      background: #1e1e1e;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 16px;
+      border: 1px solid #333;
+      transition: border-color 0.2s ease;
+    }
+    
+    .section:hover {
+      border-color: #555;
+    }
+    
+    .section h3 {
+      font-size: 16px;
+      font-weight: 500;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #ffffff;
+    }
+    
+    .toggle-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    
+    .toggle {
+      position: relative;
+      width: 48px;
+      height: 24px;
+      background: #333;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
+      border: 1px solid #555;
+    }
+    
+    .toggle.active {
+      background: #ffffff;
+      border-color: #ffffff;
+    }
+    
+    .toggle-slider {
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 18px;
+      height: 18px;
+      background: #666;
+      border-radius: 50%;
+      transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+    
+    .toggle.active .toggle-slider {
+      transform: translateX(24px);
+      background: #121212;
+    }
+    
+    .toggle-label {
+      font-size: 14px;
+      color: #e0e0e0;
+      font-weight: 400;
+    }
+    
+    label {
+      display: block;
+      margin: 16px 0 8px 0;
+      font-weight: 500;
+      font-size: 14px;
+      color: #ffffff;
+    }
+    
+    select, input {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid #333;
+      border-radius: 8px;
+      font-size: 14px;
+      background: #2a2a2a;
+      color: #ffffff;
+      box-sizing: border-box;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+    
+    select:focus, input:focus {
+      outline: none;
+      border-color: #ffffff;
+      background: #333;
+      box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
+    }
+    
+    select:hover, input:hover {
+      border-color: #555;
+    }
+    
+    .service-config {
+      margin-top: 16px;
+      padding: 16px;
+      background: #2a2a2a;
+      border-radius: 8px;
+      border: 1px solid #333;
+    }
+    
+    .api-key-container {
+      margin-top: 12px;
+    }
+    
+    .api-key-container input {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 13px;
+      background: #1e1e1e;
+    }
+    
+    .help-text {
+      font-size: 12px;
+      color: #b3b3b3;
+      margin-top: 8px;
+      line-height: 1.4;
+    }
+    
+    .help-text a {
+      color: #ffffff;
+      text-decoration: underline;
+    }
+    
+    .help-text a:hover {
+      color: #e0e0e0;
+    }
+    
+    .auto-save-indicator {
+      text-align: center;
+      margin-top: 20px;
+      padding: 12px 16px;
+      background: #1e1e1e;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #ffffff;
+      border: 1px solid #333;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    
+    .status {
+      text-align: center;
+      margin-top: 12px;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+    }
+    
+    .status.success {
+      background: #1e1e1e;
+      color: #ffffff;
+      border: 1px solid #333;
+    }
+    
+    .status.error {
+      background: #2a1e1e;
+      color: #ffcdd2;
+      border: 1px solid #444;
+    }
+    
+    .hidden {
+      display: none;
+    }
+    
+    .service-status {
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 16px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .free-badge {
+      background: #333;
+      color: #ffffff;
+      border: 1px solid #555;
+    }
+    
+    .paid-badge {
+      background: #2a2a2a;
+      color: #ffffff;
+      border: 1px solid #444;
+    }
+    
+    .premium-badge {
+      background: #ffffff;
+      color: #121212;
+      border: 1px solid #ffffff;
+    }
+    
+    .footer {
+      text-align: center;
+      margin-top: 24px;
+      padding: 16px 20px;
+      font-size: 12px;
+      color: #666;
+      border-top: 1px solid #333;
+      background: #1e1e1e;
+    }
+    
+    .creator {
+      color: #ffffff;
+      font-weight: 500;
+    }
+    
+    /* Material ripple effect */
+    .ripple {
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .ripple::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+    }
+    
+    .ripple:active::before {
+      width: 300px;
+      height: 300px;
+    }
+    
+    /* Scrollbar styling */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    
+    ::-webkit-scrollbar-track {
+      background: #1e1e1e;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+      background: #333;
+      border-radius: 3px;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+  <h1>
+    <img src="icons/icon48.png" alt="Transient Logo" class="logo-icon">
+    Transient
+  </h1>
+  <p>Advanced Translation Tool</p>
+</div>
+
+  <div class="content">
+    <!-- Selection Translation -->
+    <div class="section ripple">
+      <h3>📝 Selection Translation</h3>
+      <div class="toggle-container">
+        <div class="toggle" id="selectToggle">
+          <div class="toggle-slider"></div>
+        </div>
+        <span class="toggle-label">Enable text selection translation</span>
+      </div>
+      <label for="selectTargetLang">Target Language:</label>
+      <select id="selectTargetLang">
+        <option value="en">🇺🇸 English</option>
+        <option value="es">🇪🇸 Spanish</option>
+        <option value="fr">🇫🇷 French</option>
+        <option value="de">🇩🇪 German</option>
+        <option value="it">🇮🇹 Italian</option>
+        <option value="pt">🇵🇹 Portuguese</option>
+        <option value="ru">🇷🇺 Russian</option>
+        <option value="ja">🇯🇵 Japanese</option>
+        <option value="ko">🇰🇷 Korean</option>
+        <option value="zh">🇨🇳 Chinese</option>
+        <option value="ar">🇸🇦 Arabic</option>
+        <option value="hi">🇮🇳 Hindi</option>
+      </select>
+    </div>
+
+    <!-- Textbar Translation -->
+    <div class="section ripple">
+      <h3>💬 Textbar Translation</h3>
+      <div class="toggle-container">
+        <div class="toggle" id="textbarToggle">
+          <div class="toggle-slider"></div>
+        </div>
+        <span class="toggle-label">Enable textbar translation icons</span>
+      </div>
+      <label for="textbarSourceLang">From Language:</label>
+      <select id="textbarSourceLang">
+        <option value="auto">🔍 Auto-detect</option>
+        <option value="en">🇺🇸 English</option>
+        <option value="es">🇪🇸 Spanish</option>
+        <option value="fr">🇫🇷 French</option>
+        <option value="de">🇩🇪 German</option>
+        <option value="it">🇮🇹 Italian</option>
+        <option value="pt">🇵🇹 Portuguese</option>
+        <option value="ru">🇷🇺 Russian</option>
+        <option value="ja">🇯🇵 Japanese</option>
+        <option value="ko">🇰🇷 Korean</option>
+        <option value="zh">🇨🇳 Chinese</option>
+        <option value="ar">🇸🇦 Arabic</option>
+        <option value="hi">🇮🇳 Hindi</option>
+      </select>
+      <label for="textbarTargetLang">To Language:</label>
+      <select id="textbarTargetLang">
+        <option value="en">🇺🇸 English</option>
+        <option value="es">🇪🇸 Spanish</option>
+        <option value="fr">🇫🇷 French</option>
+        <option value="de">🇩🇪 German</option>
+        <option value="it">🇮🇹 Italian</option>
+        <option value="pt">🇵🇹 Portuguese</option>
+        <option value="ru">🇷🇺 Russian</option>
+        <option value="ja">🇯🇵 Japanese</option>
+        <option value="ko">🇰🇷 Korean</option>
+        <option value="zh">🇨🇳 Chinese</option>
+        <option value="ar">🇸🇦 Arabic</option>
+        <option value="hi">🇮🇳 Hindi</option>
+      </select>
+    </div>
+
+    <!-- Translation Service -->
+    <div class="section ripple">
+      <h3>⚙️ Translation Service</h3>
+      <div class="toggle-container">
+        <div class="toggle" id="serviceTypeToggle">
+          <div class="toggle-slider"></div>
+        </div>
+        <span class="toggle-label" id="serviceTypeLabel">Free Services</span>
+      </div>
+
+      <!-- Free Services -->
+      <div id="freeServices" class="service-config">
+        <label for="freeServiceSelect">Choose Free Service:</label>
+        <select id="freeServiceSelect">
+          <option value="google-web">🔍 Google Translate (Web) - FREE</option>
+          <option value="libretranslate">🌍 LibreTranslate - FREE</option>
+          <option value="mymemory">🧠 MyMemory API - FREE</option>
+          <option value="multi-free">🔄 Multi-Service (Auto-fallback) - BEST</option>
+        </select>
+        <div class="help-text">
+          <strong>Multi-Service:</strong> Automatically tries Google Web → LibreTranslate → MyMemory for best reliability.
+        </div>
+      </div>
+
+      <!-- Paid Services -->
+      <div id="paidServices" class="service-config hidden">
+        <label for="paidServiceSelect">Choose Paid Service:</label>
+        <select id="paidServiceSelect">
+          <option value="microsoft">Ⓜ️ Microsoft Translator - 2M chars/month free</option>
+          <option value="gemini">✨ Google Gemini API - PREMIUM</option>
+        </select>
+
+        <!-- Microsoft API Key -->
+        <div id="microsoftConfig" class="api-key-container">
+          <label for="microsoftApiKey">Microsoft Translator API Key:</label>
+          <input type="password" id="microsoftApiKey" placeholder="Enter your Microsoft API key">
+          <div class="help-text">
+            Get free API key from <a href="https://azure.microsoft.com/en-us/services/cognitive-services/translator/" target="_blank">Azure Cognitive Services</a><br>
+            Free tier: 2 million characters per month
+          </div>
+        </div>
+
+        <!-- Gemini API Key -->
+        <div id="geminiConfig" class="api-key-container hidden">
+          <label for="geminiApiKey">Google Gemini API Key:</label>
+          <input type="password" id="geminiApiKey" placeholder="Enter your Gemini API key">
+          <div class="help-text">
+            Get API key from <a href="https://ai.google.dev/" target="_blank">Google AI Studio</a><br>
+            Supports advanced translation with context understanding
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="auto-save-indicator">
+      <span>✅</span>
+      <span>All settings are saved automatically</span>
+    </div>
+  </div>
+
+  <div class="footer">
+    Created by <span class="creator">its_me</span>
+  </div>
+
+  <div id="status" class="status hidden"></div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
