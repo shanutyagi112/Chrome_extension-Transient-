@@ -12,7 +12,7 @@ const iconBase64TWhite = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdo
 
 // T icon in dark background with gray "T" (for textbar)
 const iconBase64TGray = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIyMCIgY3k9IjIwIiByPSIyMCIgZmlsbD0iIzFmMWYxZiIgc3Ryb2tlPSIjNDA0NDRiIiBzdHJva2Utd2lkdGg9IjEiLz48cGF0aCBkPSJNMTUgMTJIMjVWMTVIMTJaIiBmaWxsPSIjYjliYmJlIi8+PHBhdGggZD0iTTE5IDEySDIxVjI4SDE5VjEyWiIgZmlsbD0iI2I5YmJiZSIvPjwvc3ZnPg==";
-
+ 
 // Initialize
 setTimeout(() => {
   isExtensionReady = true;
