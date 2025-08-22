@@ -1,6 +1,5 @@
 # Transient - Advanced Translation Tool
 
-![Transient Logo](screenshots/transient-logo.png)
 
 ## Overview
 
@@ -75,7 +74,9 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under a Custom Non-Commercial License - see the [LICENSE](LICENSE) file for details.
+
+This license allows for personal and educational use, but explicitly prohibits any commercial use, including selling the extension or using it to generate revenue.
 
 ## Acknowledgments
 
