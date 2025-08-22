@@ -4,12 +4,14 @@ let textbarIcons = new Map();
 let originalTexts = new WeakMap();
 let isExtensionReady = false;
 
+// T icon in blue circle - matching the provided image
+const iconBase64T = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIyMCIgY3k9IjIwIiByPSIyMCIgZmlsbD0iIzU4NjVmMiIvPjxwYXRoIGQ9Ik0xNSAxMkgyNVYxNUgxMloiIGZpbGw9IndoaXRlIi8+PHBhdGggZD0iTTE5IDEySDIxVjI4SDE5VjEyWiIgZmlsbD0id2hpdGUiLz48L3N2Zz4=";
 
-const iconBase64Blue = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB4PSI0IiB5PSI0IiB3aWR0aD0iNTYiIGhlaWdodD0iNTYiIHJ4PSI4IiBmaWxsPSIjMWYxZjFmIiBzdHJva2U9IiM1ODY1ZjIiIHN0cm9rZS13aWR0aD0iMiIvPjxwYXRoIGQ9Ik0yMiAyMkg0MlYzM0wzNSAyNkwyOCAzM0wyOCAyMkgyMloiIHN0cm9rZT0iIzU4NjVmMiIgc3Ryb2tlLXdpZHRoPSIyIiBmaWxsPSJub25lIi8+PHBhdGggZD0iTTIyIDQwSDQyVjQ0SDIyVjQwWiIgc3Ryb2tlPSIjNTg2NWYyIiBzdHJva2Utd2lkdGg9IjIiIGZpbGw9Im5vbmUiLz48L3N2Zz4=";
+// T icon in white circle with blue background (for settings header)
+const iconBase64TWhite = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIyMCIgY3k9IjIwIiByPSIyMCIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjIpIi8+PHBhdGggZD0iTTE1IDEySDI1VjE1SDEyWiIgZmlsbD0id2hpdGUiLz48cGF0aCBkPSJNMTkgMTJIMjFWMjhIMTlWMTJaIiBmaWxsPSJ3aGl0ZSIvPjwvc3ZnPg==";
 
-const iconBase64White = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB4PSI0IiB5PSI0IiB3aWR0aD0iNTYiIGhlaWdodD0iNTYiIHJ4PSI4IiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMikiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMiIvPjxwYXRoIGQ9Ik0yMiAyMkg0MlYzM0wzNSAyNkwyOCAzM0wyOCAyMkgyMloiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMiIgZmlsbD0ibm9uZSIvPjxwYXRoIGQ9Ik0yMiA0MEg0MlY0NEgyMlY0MFoiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMiIgZmlsbD0ibm9uZSIvPjwvc3ZnPg==";
-
-const iconBase64Gray = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB4PSI0IiB5PSI0IiB3aWR0aD0iNTYiIGhlaWdodD0iNTYiIHJ4PSI4IiBmaWxsPSIjMWYxZjFmIiBzdHJva2U9IiNiOWJiYmUiIHN0cm9rZS13aWR0aD0iMiIvPjxwYXRoIGQ9Ik0yMiAyMkg0MlYzM0wzNSAyNkwyOCAzM0wyOCAyMkgyMloiIHN0cm9rZT0iI2I5YmJiZSIgc3Ryb2tlLXdpZHRoPSIyIiBmaWxsPSJub25lIi8+PHBhdGggZD0iTTIyIDQwSDQyVjQ0SDIyVjQwWiIgc3Ryb2tlPSIjYjliYmJlIiBzdHJva2Utd2lkdGg9IjIiIGZpbGw9Im5vbmUiLz48L3N2Zz4=";
+// T icon in dark background with gray "T" (for textbar)
+const iconBase64TGray = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIyMCIgY3k9IjIwIiByPSIyMCIgZmlsbD0iIzFmMWYxZiIgc3Ryb2tlPSIjNDA0NDRiIiBzdHJva2Utd2lkdGg9IjEiLz48cGF0aCBkPSJNMTUgMTJIMjVWMTVIMTJaIiBmaWxsPSIjYjliYmJlIi8+PHBhdGggZD0iTTE5IDEySDIxVjI4SDE5VjEyWiIgZmlsbD0iI2I5YmJiZSIvPjwvc3ZnPg==";
 
 // Initialize
 setTimeout(() => {
@@ -119,8 +121,8 @@ function showTranslationPopup(text, selection) {
         letter-spacing: 0.5px;
       ">
         <div style="display: flex; align-items: center; gap: 8px;">
-          <img src="${iconBase64Blue}" width="14" height="14" alt="Transient" style="display:block;">
-          <span>Translating</span>
+          <img src="${iconBase64T}" width="16" height="16" alt="Transient" style="display:block;">
+          <span>Transient</span>
         </div>
         <button style="
           background: none;
@@ -428,8 +430,8 @@ function createTranslationIcon(input) {
   const icon = document.createElement('div');
   icon.className = 'translator-icon';
   
-  // Using your custom icon
-  icon.innerHTML = `<img src="${iconBase64Gray}" width="16" height="16" alt="Transient" style="display:block;">`;
+  // Using the provided T icon style for textbar
+  icon.innerHTML = `<img src="${iconBase64TGray}" width="16" height="16" alt="Transient" style="display:block;">`;
   
   icon.title = 'Transient • Click to translate • Hold for settings';
   
@@ -621,10 +623,10 @@ function updateIconPosition(icon, input) {
       icon.style.borderColor = '#5865f2';
       icon.style.boxShadow = '0 4px 15px rgba(88, 101, 242, 0.3)';
       
-      // Change to white icon on hover
+      // Change to blue T icon on hover
       const img = icon.querySelector('img');
       if (img) {
-        img.src = iconBase64White;
+        img.src = iconBase64T;
       }
     }
   };
@@ -640,7 +642,7 @@ function updateIconPosition(icon, input) {
       // Change back to gray icon
       const img = icon.querySelector('img');
       if (img) {
-        img.src = iconBase64Gray;
+        img.src = iconBase64TGray;
       }
     }
   };
@@ -1161,7 +1163,7 @@ function showLanguageMenu(icon, input) {
           align-items: center;
           justify-content: center;
         ">
-          <img src="${iconBase64White}" width="16" height="16" alt="Transient" style="display:block;">
+          <img src="${iconBase64TWhite}" width="16" height="16" alt="Transient" style="display:block;">
         </div>
         <div>
           <div style="font-size: 18px; font-weight: 600;">Transient</div>
@@ -1456,4 +1458,4 @@ window.addEventListener('beforeunload', () => {
   hideTranslationPopup();
 });
 
-console.log('Transient: Advanced translation tool loaded by imshanutyagi');
+console.log('Transient: Advanced translation tool loaded by its_me');
