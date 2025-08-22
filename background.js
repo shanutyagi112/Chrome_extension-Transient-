@@ -1,4 +1,4 @@
- // Multi-service translation background script
+ // Multi-service translation background script 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.action === 'translate') {
     translateText(request.text, request.sourceLang, request.targetLang)
